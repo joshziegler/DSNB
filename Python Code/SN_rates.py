@@ -112,7 +112,7 @@ def IMF(M, LIR, usesalpeter=False, SFR2alpha=2.6, usekinkednorm=True, Mkink=0.5,
     if usekinkednorm:
         IMFint = ((Mhi**(2+a) - Mkink**(2+a))/(2+a)  + (Mkink**(2+alphalow) - Mlo**(2+alphalow))/(2+alphalow)) * Msun
     else:
-        IMFint = ((Mhi**(2+a) - Mkink**(2+a))/(2+a)) * Msun
+        IMFint = ((Mhi**(2+a) - Mlow**(2+a))/(2+a)) * Msun
     
     #Calculation of unnormalized IMF
     IMF = (M/Msun)**a * Msun**-1
@@ -372,7 +372,7 @@ def Phi_star(z, parameters):
         print("parameters must be either one of 'spiral', 'starburst', 'SFAGN', or 'total or an iterable with length 2 or 4.")
         return None
     
-    #define Lstar using provided parameters, separately for 2- and 4- element lists.
+    #define Phistar using provided parameters, separately for 2- and 4- element lists.
     if len(paramlist)==2:
         return Mpc**-3 * (10.0**paramlist[0]) * np.power(1.0+z, paramlist[1])
     else:
