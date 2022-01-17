@@ -272,7 +272,7 @@ def DSNB_galaxy(E, gtype='spiral', salpeter=False, SFR2alpha=2.6,
     dL = [(R * Phi(L,z)).T*IMFtot[:,i,:] for i in range(len(E))]
 
     #Integrate over galaxy luminosities, this calculates the total number per energy of neutrinos emitted by all galaxies of a given type in a given region of space. 
-    intdL = simps(dL,x=logL,axis=1) # Is this really necessary? #/np.log(10) # To modify between log base 10 and ln
+    intdL = simps(dL,x=logL,axis=1)
     #Calculate the number per energy of neutrinos emitted by all galaxies in a spherical shell with redshift z
     dz = intdL*c*Hinv(z)
 
