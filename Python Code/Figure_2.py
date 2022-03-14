@@ -63,7 +63,7 @@ plt.semilogx(age, calibsbd, ls="--", color="C2")
 
 plt.hlines(4.5e-44, 9, 1000, color="black")
 
-plt.semilogx([0, 1], [-1, -1], label="Starburst", color="k", ls="--")
+plt.semilogx([0, 1], [-1, -1], label="Spheroidal", color="k", ls="--")
 plt.semilogx([0, 1], [-1, -1], label="Spiral", color="k")
 
 plt.axvline(x=100, color="gray", ls=":")
