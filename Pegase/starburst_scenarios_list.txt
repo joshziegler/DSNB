@@ -1,4 +1,4 @@
-SSPs_set = "IMF_2.35_hibreak_SSPs.txt"
+SSPs_set = "IMF_2.35_SSPs.txt"
 
 ! Here are the parameters for the starburst galaxies
 ! We try to consider the variety of possible inputs
@@ -25,7 +25,7 @@ ISM_init_Z = 0.013
 
 ! Dust
 dust_emission = .true.
-spectra_file = "PL2.35_hibreak_spectra_starburst_standard1.txt"
+spectra_file = "PL2.35_spectra_starburst_standard1.txt"
 return
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -47,7 +47,7 @@ ISM_init_Z = 0.026
 
 ! Dust
 dust_emission = .true.
-spectra_file = "PL2.35_hibreak_spectra_starburst_standard2.txt"
+spectra_file = "PL2.35_spectra_starburst_standard2.txt"
 return
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -70,7 +70,7 @@ ISM_init_Z = 0.0195
 ! Dust
 grains_file = "ZDA.txt"
 dust_emission = .true.
-spectra_file = "PL2.35_hibreak_spectra_starburst_standard3.txt"
+spectra_file = "PL2.35_spectra_starburst_standard3.txt"
 return
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -93,7 +93,7 @@ ISM_init_Z = 0.0195
 ! Dust
 grains_file = "LWD.txt"
 dust_emission = .true.
-spectra_file = "PL2.35_hibreak_spectra_starburst_standard4.txt"
+spectra_file = "PL2.35_spectra_starburst_standard4.txt"
 return
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -116,6 +116,6 @@ ISM_init_Z = 0.0195
 ! Dust
 grains_file = "MRN.txt"
 dust_emission = .true.
-spectra_file = "PL2.35_hibreak_spectra_starburst_standard5.txt"
+spectra_file = "PL2.35_spectra_starburst_standard5.txt"
 end
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
