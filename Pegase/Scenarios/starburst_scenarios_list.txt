@@ -1,0 +1,121 @@
+SSPs_set = "IMF_2.35_SSPs.txt"
+
+! Here are the parameters for the starburst galaxies
+! We try to consider the variety of possible inputs
+! focussing mainly on dust and bursting SFR
+
+! http://inspirehep.net/record/875072 Used this to get an
+! idea of the metalicity ranges that would be allowed
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1
+! Basics of the starburst galaxy
+geometry = "spheroidal"
+CBR = .true.
+nebular_emission = .true.
+extinction = .true.
+inclin_averaged = .true.
+form_redshift = 0.1
+
+! Star Formation
+SF_Z_type = "consistent"
+SF_type = "constant"
+SF_const_mass = 1.e0
+reserv_Z = 0.013
+ISM_init_Z = 0.013
+
+! Dust
+dust_emission = .true.
+spectra_file = "PL2.35_spectra_starburst_standard1.txt"
+return
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 2
+! Basics of the starburst galaxy
+geometry = "spheroidal"
+CBR = .true.
+nebular_emission = .true.
+extinction = .true.
+inclin_averaged = .true.
+form_redshift = 0.1
+
+! Star Formation
+SF_Z_type = "consistent"
+SF_type = "constant"
+SF_const_mass = 1.e0
+reserv_Z = 0.026
+ISM_init_Z = 0.026
+
+! Dust
+dust_emission = .true.
+spectra_file = "PL2.35_spectra_starburst_standard2.txt"
+return
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 3
+! Basics of the starburst galaxy
+geometry = "spheroidal"
+CBR = .true.
+nebular_emission = .true.
+extinction = .true.
+inclin_averaged = .true.
+form_redshift = 0.1
+
+! Star Formation
+SF_Z_type = "consistent"
+SF_type = "constant"
+SF_const_mass = 1.e0
+reserv_Z = 0.0195
+ISM_init_Z = 0.0195
+
+! Dust
+grains_file = "ZDA.txt"
+dust_emission = .true.
+spectra_file = "PL2.35_spectra_starburst_standard3.txt"
+return
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 4
+! Basics of the starburst galaxy
+geometry = "spheroidal"
+CBR = .true.
+nebular_emission = .true.
+extinction = .true.
+inclin_averaged = .true.
+form_redshift = 0.1
+
+! Star Formation
+SF_Z_type = "consistent"
+SF_type = "constant"
+SF_const_mass = 1.e0
+reserv_Z = 0.0195
+ISM_init_Z = 0.0195
+
+! Dust
+grains_file = "LWD.txt"
+dust_emission = .true.
+spectra_file = "PL2.35_spectra_starburst_standard4.txt"
+return
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 5
+! Basics of the starburst galaxy
+geometry = "spheroidal"
+CBR = .true.
+nebular_emission = .true.
+extinction = .true.
+inclin_averaged = .true.
+form_redshift = 0.1
+
+! Star Formation
+SF_Z_type = "consistent"
+SF_type = "constant"
+SF_const_mass = 1.e0
+reserv_Z = 0.0195
+ISM_init_Z = 0.0195
+
+! Dust
+grains_file = "MRN.txt"
+dust_emission = .true.
+spectra_file = "PL2.35_spectra_starburst_standard5.txt"
+end
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
