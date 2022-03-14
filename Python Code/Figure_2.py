@@ -33,14 +33,14 @@ plt.semilogx(age, calibsb5, ls="--", color=plasma(0.1))
 
 plt.hlines(4.5e-44, 9, 1000, color="black")
 
-plt.semilogx([0, 1], [-1, -1], label="Starburst", color="k", ls="--")
+plt.semilogx([0, 1], [-1, -1], label="Spheroidal", color="k", ls="--")
 plt.semilogx([0, 1], [-1, -1], label="Spiral", color="k")
 
 plt.axvline(x=100, color="gray", ls=":")
 
 plt.xlim(9, 1000)
 plt.ylim(0.15e-43, 0.6e-43)
-plt.xlabel(r"Star Formation Duration [Myr]")
+plt.xlabel(r"Time Since Start of Star Formation [Myr]")
 plt.ylabel(r"Calibration $[\mathrm{M_{\odot}\,yr^{-1}\,erg^{-1}\,s}]$")
 plt.legend(fontsize=15, ncol=1, loc="upper right", frameon=True)
 plt.savefig("../plots/Calib_alpha.pdf", bbox_inches="tight")
@@ -70,7 +70,7 @@ plt.axvline(x=100, color="gray", ls=":")
 
 plt.xlim(9, 1000)
 plt.ylim(0.15e-43, 0.6e-43)
-plt.xlabel(r"Star Formation Duration [Myr]")
+plt.xlabel(r"Time Since Start of Star Formation [Myr]")
 plt.ylabel(r"Calibration $[\mathrm{M_{\odot}\,yr^{-1}\,erg^{-1}\,s}]$")
 plt.legend(fontsize=15, ncol=3, loc="lower left", frameon=True)
 plt.savefig("../plots/Calib_range.pdf", bbox_inches="tight")
