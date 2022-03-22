@@ -36,9 +36,7 @@ tstar = 11* M / lum #Gyr
 yr2sec = 3.154e16
 Omega_m = 0.308
 
-zd = lambda z: 
-    ((np.tanh((3./2.)*H0*tstar*yr2sec*np.sqrt(1-Omega_m) 
-        + np.arctanh((1+0.Omega_m/(1-Omega_m)*(1+z)**3)**-0.5)))**-2-1)**(1./3.) - 1
+zd = lambda z: ((np.tanh((3./2.)*H0*tstar*yr2sec*np.sqrt(1-Omega_m) + np.arctanh((1+Omega_m/(1-Omega_m)*(1+z)**3)**-0.5)))**-2-1)**(1./3.) - 1
 
 z = np.linspace(0, 5, 50)
 E = np.logspace(-1,2,100)
