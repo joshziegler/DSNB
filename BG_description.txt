@@ -1,0 +1,6 @@
+Bacgrounds from 10-30 MeV, each row is different BG.
+1 row - reactor neutrinos,
+2 row - Li9 spallation bacground, 
+3 row - invisible muons,
+4 row - atmospheric nu_e and antinu_e
+5 row - NC atmospheric - de-excitation gammas from qiasielastic scatering and pion production
