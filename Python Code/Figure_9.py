@@ -31,17 +31,44 @@ plt.figure(figsize=(7, 5))
 fig, ax = plt.subplots()
 
 plt.axvspan(9.3, 31.3, alpha=0.2, color="C3", label="SK Signal Region")
-plt.fill_between(SK_E, SK_lim, np.ones_like(SK_E)*10e0, label=r"SK-I/II/III", hatch="//", facecolor="None", edgecolor="k")
-plt.fill_between(SK4_E, SK4_lim, np.ones_like(SK4_E*10e0, label=r"SK-IV", hatch="\\\\", facecolor="None", edgecolor="k")
+SK_E_temp = np.linspace(9.3, 31.3, num=3)
+plt.fill_between(
+    SK_E_temp,
+    np.array([40, 0.5, 0.1]),
+    np.ones_like(SK_E_temp) * 100e0,
+    label=r"Explored by SK I-IV",
+    hatch="//",
+    facecolor="None",
+    edgecolor="k",
+)
+
+# plt.fill_between(
+#     SK_E,
+#     SK_lim,
+#     np.ones_like(SK_E) * 10e0,
+#     label=r"SK-I/II/III",
+#     hatch="//",
+#     facecolor="None",
+#     edgecolor="k",
+# )
+# plt.fill_between(
+#     SK4_E,
+#     SK4_lim,
+#     np.ones_like(SK4_E * 10e0),
+#     label=r"SK-IV",
+#     hatch="\\\\",
+#     facecolor="None",
+#     edgecolor="k",
+# )
 
 plt.plot(E, DSNB, "-", color="C0", label="Varying IMF")
 plt.plot(E, DSNB_salpeter, "--", color="C2", label="Salpeter IMF")
 
 plt.yscale("log")
 plt.xlim(0, 50)
-plt.ylim(1e-3, 100e0)
+plt.ylim(1e-3, 10e0)
 plt.legend(loc="lower left", frameon=True, fontsize=14)
-plt.xlabel(r"$E \, \mathrm{[MeV]}$")
+plt.xlabel(r"Neutrino Energy, $E \, \mathrm{[MeV]}$")
 plt.ylabel(r"$\Phi_{\bar{\nu_e}} \, \mathrm{[cm^{-2} \, s^{-1} \, MeV^{-1}]} $")
 plt.savefig("../plots/DSNB.pdf", bbox_inches="tight")
 
@@ -110,7 +137,7 @@ plt.plot(E, DSNB3, "-", color=plasma(0.2), label="z=1.0-5.0")
 plt.yscale("log")
 plt.xlim(0, 50)
 plt.ylim(1e-3, 10e0)
-plt.legend(loc="upper right", frameon=True)
-plt.xlabel(r"$E \, \mathrm{[MeV]}$")
+plt.legend(loc="upper right", frameon=True, fontsize=14)
+plt.xlabel(r"Neutrino Energy, $E \, \mathrm{[MeV]}$")
 plt.ylabel(r"$\Phi_{\bar{\nu_e}} \, \mathrm{[cm^{-2} \, s^{-1} \, MeV^{-1}]} $")
 plt.savefig("../plots/DSNB_z.pdf", bbox_inches="tight")

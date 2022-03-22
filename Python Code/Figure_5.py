@@ -27,11 +27,9 @@ temp = 5777*np.where(M<2.,
             2**0.1*5**(-9./40.)*M**0.7, 
             2**(39./50.)*5**(23./200.)*M**0.36))) #K
             
-npho = lambda energy, T: 
-    1/(np.pi**2 * 197.327**3)*energy**2/(np.exp(energy/(8.617e-5*T))-1) #eV^-1 nm^-3
+npho = lambda energy, T: 1/(np.pi**2 * 197.327**3)*energy**2/(np.exp(energy/(8.617e-5*T))-1) #eV^-1 nm^-3
     
-dNdtpho = lambda energy, T, R: 
-    np.pi*(R*6.957e17)**2*3e17 * npho(energy, T) #eV^-1 s^-1
+dNdtpho = lambda energy, T, R: np.pi*(R*6.957e17)**2*3e17 * npho(energy, T) #eV^-1 s^-1
 
 H0 = 100.*0.678*sn.km/sn.sec/sn.Mpc
 tstar = 11* M / lum #Gyr
@@ -76,8 +74,6 @@ ebl = E**2*sn.c/(4*np.pi) * 1.60217662e-12/3.086e22**2 * ssrd/(2*np.pi) #erg s^-
 eblsal = E**2*sn.c/(4*np.pi) * 1.60217662e-12/3.086e22**2 * ssrdsal/(2*np.pi) #erg s^-1 m^-2 sr^-1
 
 
-plt.figure()
-
 plt.loglog(1240/E, ebl, label='Varying IMF', color = 'C0')
 plt.loglog(1240/E, eblsal, label='Salpeter-like IMF', color = 'C2', ls = '--')
 
@@ -97,5 +93,6 @@ plt.ylabel('$\lambda I_\lambda$ $[\mathrm{erg\,sec^{-1}\,m^{-2}\, sr^{-1}}]$')
 plt.axvspan(2700, 7000, alpha=0.2, color='C3', label='Reduced Dust Effects')
 
 plt.legend(loc = 'lower left', fontsize = 14, frameon=True)
+plt.xlim(1, 1e5)
 
 plt.savefig('../plots/EBL-2.pdf', bbox_inches='tight')

@@ -57,14 +57,14 @@ BHfrac_sal = (
     + BHfrac_AGNstarburst_sal
 ) / BHfrac_sal_tot
 
-plt.figure(figsize=(7, 5))
+# plt.figure(figsize=(7, 5))
 
 plt.plot(z, BHfrac, "-", color="C0", label="Varying IMF (Total)")
 plt.plot(z, BHfrac_sal, "--", color="C2", label="Salpeter IMF (Total)")
 
 plt.xlim(0, 4.0)
 plt.ylim(0.1, 0.5)
-plt.legend(loc="upper left", ncol=1)
-plt.xlabel(r"$z$")
-plt.ylabel("BH frac")
+plt.legend(loc="upper left", frameon=True)
+plt.xlabel(r"Redshift, $z$")
+plt.ylabel("Black Hole Fraction")
 plt.savefig("../plots/BHfrac.pdf", bbox_inches="tight")
