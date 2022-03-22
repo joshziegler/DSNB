@@ -34,9 +34,9 @@ plt.figure()
 plt.loglog(massrange, kroupa, label="Kroupa (2001)", ls=":", color="C2")
 plt.loglog(massrange, chabrier, label="Chabrier (2003)", ls="-.", color="C3")
 plt.fill_between(
-    massrange, varying18, varying235, alpha=0.3, label="Varying IMF", color="C0"
+    massrange, varying18, varying235, alpha=0.3, label="Varying IMF (this work)", color="C0"
 )
-plt.loglog(massrange, varying235, label="Salpeter (this work)", ls="-", color="C0")
+plt.loglog(massrange, varying235, label="Salpeter-like", ls="-", color="C0")
 
 plt.xlim(1e-1, 1e2)
 plt.legend(loc="lower left")

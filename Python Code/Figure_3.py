@@ -52,7 +52,7 @@ plt.plot(
     integ.simps(sn.Phi_Starburst(L, z), x=L, axis=1),
     color="C1",
     linewidth=2,
-    label="Starburst",
+    label="Spheroidal",
 )
 plt.plot(
     z,

@@ -1,0 +1,16 @@
+!# Far Infrared filter, used to integrate over the range 8-1000 um, consistent with the luminosities in https://arxiv.org/pdf/1302.5209.pdf
+"FIR"
+"energy"
+"Vega"
+   79999.0 0.0
+   80000.0 1.0
+  100000.0 1.0
+  200000.0 1.0
+  400000.0 1.0
+  700000.0 1.0
+ 1000000.0 1.0
+ 2000000.0 1.0
+ 4000000.0 1.0
+ 7000000.0 1.0 
+ 9999999.0 1.0
+10000000.0 0.0
