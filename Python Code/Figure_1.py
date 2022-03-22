@@ -1,7 +1,6 @@
 import SN_rates as sn
 import numpy as np
 import scipy.integrate as integ
-import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rc
 
@@ -21,9 +20,13 @@ chabrier = np.where(
     * massrange ** -2.3,
 )
 chabrier /= integ.simps(chabrier, x=massrange)
-varying18 = np.where(massrange < 1, massrange ** -1.3, massrange ** -1.8)
+varying18 = np.where(
+    massrange < 0.5, massrange ** -1.3, (0.5 ** 0.5) * massrange ** -1.8
+)
 varying18 /= integ.simps(varying18, x=massrange)
-varying235 = np.where(massrange < 1, massrange ** -1.3, massrange ** -2.35)
+varying235 = np.where(
+    massrange < 0.5, massrange ** -1.3, (0.5 ** 1.05) * massrange ** -2.35
+)
 varying235 /= integ.simps(varying235, x=massrange)
 
 plt.figure()
@@ -37,6 +40,6 @@ plt.loglog(massrange, varying235, label="Salpeter (this work)", ls="-", color="C
 
 plt.xlim(1e-1, 1e2)
 plt.legend(loc="lower left")
-plt.ylabel(r"IMF ($dN/dM$)")
-plt.xlabel(r"Mass [$M_\odot$]")
+plt.ylabel(r"Initial Mass Function, $\frac{dN}{dM}$")
+plt.xlabel(r"Mass [${\rm M}_\odot$]")
 plt.savefig("../plots/IMF.pdf", bbox_inches="tight")
