@@ -42,19 +42,46 @@ fftconvsal = np.fft.irfft(np.fft.rfft(rhoSF_sal) * np.fft.rfft(t ** -1 / 10))
 sn1az, sn1azerr, sn1arate, sn1arateerrminus, sn1arateerrplus = np.loadtxt(
     "../Data/sn1a.txt", unpack=True
 )
+pz, prate, prateerrminus, prateerrplus = np.loadtxt(
+    "../Data/SN_constraints/Perrett_2012.txt", unpack=True
+)
+cz, czerrlo, czerrhi, crate, crateerr = np.loadtxt(
+    "../Data/SN_constraints/Cappellaro_2015.txt", unpack=True
+)
+
 
 plt.figure(figsize=(7, 5))
 plt.plot(z, fftconv * 1e4, color="C0", label="Varied IMF")
-plt.plot(z, fftconvsal * 1e4, color="C2", label="Salpeter IMF")
-plt.plot(z, fftconv * 2 * 1e4, color="C0", ls="--", label=r"Varied IMF-DTD$\times$2")
+plt.plot(z, fftconvsal * 1e4, color="C2", ls="--", label="Salpeter IMF")
+plt.plot(z, fftconv * 2 * 1e4, color="C0", ls="-.", label=r"Varied IMF-DTD$\times$2")
 plt.errorbar(
     sn1az,
     sn1arate,
     xerr=sn1azerr,
     yerr=(sn1arateerrminus, sn1arateerrplus),
-    color="black",
+    color="firebrick",
     ls="none",
     label="Strolger et al. (2020)",
+)
+plt.errorbar(
+    pz, 
+    prate, 
+    xerr=0.05, 
+    yerr=(prateerrminus, prateerrplus), 
+    color = "darkred", 
+    ls="none", 
+    label = "Perrett et al. (2012)", 
+    marker="s"
+)
+plt.errorbar(
+    cz, 
+    crate, 
+    xerr=(czerrlo, czerrhi), 
+    yerr=crateerr, 
+    color="red", 
+    ls="none", 
+    label="Cappellaro et al. (2015)", 
+    marker="p"
 )
 
 plt.xlim(0, 3.0)
