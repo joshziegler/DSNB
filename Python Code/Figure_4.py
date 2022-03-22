@@ -70,38 +70,45 @@ plt.errorbar(
     marker="p",
     ls="none",
 )
-print(z)
-print((rhoSF_sal - rhoSF) / rhoSF_sal)
+# print(z)
+# print((rhoSF_sal - rhoSF) / rhoSF_sal)
 
 plt.plot(z, rhoSF, "-", color="C0", label="Varying IMF")
 plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter IMF")
 
-plt.scatter(
-    m11x,
-    10 ** m11y
-    * [rhoSF[z < m11x[i]][-1] / rhoSF_sal[z < m11x[i]][-1] for i in range(len(m11x))],
-    color="C0",
-)
-plt.scatter(
-    m13x,
-    10 ** m13y
-    * [rhoSF[z < m13x[i]][-1] / rhoSF_sal[z < m13x[i]][-1] for i in range(len(m13x))],
-    color="C0",
-)
-plt.scatter(
-    gx,
-    10 ** gy
-    * [rhoSF[z < gx[i]][-1] / rhoSF_sal[z < gx[i]][-1] for i in range(len(gx))],
-    color="C0",
-)
+# plt.scatter(
+#     m11x,
+#     10 ** m11y
+#     * [rhoSF[z < m11x[i]][-1] / rhoSF_sal[z < m11x[i]][-1] for i in range(len(m11x))],
+#     color="C0",
+# )
+# plt.scatter(
+#     m13x,
+#     10 ** m13y
+#     * [rhoSF[z < m13x[i]][-1] / rhoSF_sal[z < m13x[i]][-1] for i in range(len(m13x))],
+#     color="C0",
+# )
+# plt.scatter(
+#     gx,
+#     10 ** gy
+#     * [rhoSF[z < gx[i]][-1] / rhoSF_sal[z < gx[i]][-1] for i in range(len(gx))],
+#     color="C0",
+# )
 
 # plt.arrow(1.75, 0.085, 0, -0.04, length_includes_head=True, color = 'firebrick', width = 0.1, head_width = 0.2, head_length = 0.02, alpha = 0.4)
 # plt.text(1.87, 0.048, r'\noindent Observed $R_\mathrm{SF}$ expected\\ to change assuming\\ non-Salpeter IMF', horizontalalignment='left')
+plt.text(
+    0.08,
+    0.3,
+    r"\noindent Note that all data points assume a Salpeter-like IMF. Changes to \\ this assumption would therefore change the inferred SFRD.",
+    horizontalalignment="left",
+    fontsize=12,
+)
 
 plt.yscale("log")
 plt.xlim(0, 3.0)
-plt.ylim(1e-2, 4e-1)
-plt.legend(loc="lower right", fontsize=10, ncol=1)
-plt.xlabel(r"$z$")
+plt.ylim(1e-2, 3.8e-1)
+plt.legend(loc="lower right", fontsize=12, frameon=True)
+plt.xlabel(r"Redshift, $z$")
 plt.ylabel(r"$R_{\mathrm{SF}} \, \mathrm{[M_\odot\,yr^{-1}\,Mpc^{-3}]}$")
-plt.savefig("../plots/R_SF_v2.pdf", bbox_inches="tight")
+plt.savefig("../plots/R_SF.pdf", bbox_inches="tight")

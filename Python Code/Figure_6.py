@@ -1,46 +1,137 @@
 import SN_rates as sn
-import scipy.integrate as integ
 import numpy as np
+import scipy.integrate as integ
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rc
 
-rc('text', usetex=True)
-rc('font',**{'family':'sans-serif','sans-serif':['cmr']})
-rc('font',**{'family':'serif','serif':['cmr']})
-rc('font', size=18)
+plt.style.use("plot_style.mplstyle")
 
-z = np.linspace(0.00000001,4, 100)
+Hubble_high = np.loadtxt(
+    "../Data/SN_constraints/Strogler2015_high.txt", usecols=(1,), delimiter=","
+)
+z_hubble, Hubble_mid = np.loadtxt(
+    "../Data/SN_constraints/Strogler2015_mid.txt", unpack=True, delimiter=","
+)
+Hubble_low = np.loadtxt(
+    "../Data/SN_constraints/Strogler2015_low.txt", usecols=(1,), delimiter=","
+)
 
-rhoSF_spiral = sn.RSF_density(z,gtype='spiral')
-rhoSF_starburst = sn.RSF_density(z,gtype='starburst')
-rhoSF_AGNspiral = sn.RSF_density(z,gtype='AGN spiral')
-rhoSF_AGNstarburst = sn.RSF_density(z,gtype='AGN starburst')
-rhoSF = (rhoSF_spiral+rhoSF_starburst+rhoSF_AGNspiral+rhoSF_AGNstarburst)
+Hubble_high *= 1e-4
+Hubble_mid *= 1e-4
+Hubble_low *= 1e-4
 
-rhoSF_spiral_sal = sn.RSF_density(z,gtype='spiral',usesalpeter=True)
-rhoSF_starburst_sal = sn.RSF_density(z,gtype='starburst',usesalpeter=True)
-rhoSF_AGNspiral_sal = sn.RSF_density(z,gtype='AGN spiral',usesalpeter=True)
-rhoSF_AGNstarburst_sal = sn.RSF_density(z,gtype='AGN starburst',usesalpeter=True)
-rhoSF_sal = (rhoSF_spiral_sal+rhoSF_starburst_sal+rhoSF_AGNspiral_sal+rhoSF_AGNstarburst_sal)
+NOT_high = np.loadtxt(
+    "../Data/SN_constraints/Petrushevska2016_high.txt", usecols=(1,), delimiter=","
+)
+z_NOT, NOT_mid = np.loadtxt(
+    "../Data/SN_constraints/Petrushevska2016_mid.txt", unpack=True, delimiter=","
+)
+NOT_low = np.loadtxt(
+    "../Data/SN_constraints/Petrushevska2016_low.txt", usecols=(1,), delimiter=","
+)
 
-h0 = 0.678*1.019e-12
-OmegaM = 0.308
-OmegaL = 1-OmegaM
-t = 2/(3*np.sqrt(OmegaL)*100*h0) * (np.arctanh((OmegaM/OmegaL + 1)**(-1/2)) - np.arctanh((OmegaM/OmegaL * (z+1)**3 + 1)**(-1/2)))
+NOT_high *= 1e-4
+NOT_mid *= 1e-4
+NOT_low *= 1e-4
+NOT_low[-2:] *= 1e-10
 
-fftconv = np.fft.irfft(np.fft.rfft(rhoSF) * np.fft.rfft(t**-1/10))
-fftconvsal = np.fft.irfft(np.fft.rfft(rhoSF_sal) * np.fft.rfft(t**-1/10))
+z_dahl, low_dahl, mid_dahl, hi_dahl = np.loadtxt(
+    "../Data/SN_constraints/Dahlen12.txt", unpack=True
+)
+low_dahl *= 1e-4
+mid_dahl *= 1e-4
+hi_dahl *= 1e-4
 
-sn1az, sn1azerr, sn1arate, sn1arateerrminus, sn1arateerrplus = np.loadtxt('../Data/sn1a.txt', unpack=True)
+z = np.linspace(0, 4, 100)
 
-plt.figure(figsize = (7,5))
-plt.plot(z, fftconv*1e4, color = 'blue', label='Varied IMF')
-plt.plot(z, fftconvsal*1e4, color = 'green', label='Salpeter IMF')
-plt.plot(z, fftconv*2*1e4, color = 'blue', ls = '--', label=r'Varied IMF-DTD$\times$2')
-plt.errorbar(sn1az, sn1arate, xerr=sn1azerr, yerr = (sn1arateerrminus, sn1arateerrplus), color = 'black', ls='none', label='Strolger et al. (2020)')
+rhoCC_spiral = sn.RCC_density(z, gtype="spiral")
+rhoCC_starburst = sn.RCC_density(z, gtype="starburst")
+rhoCC_AGNspiral = sn.RCC_density(z, gtype="AGN spiral")
+rhoCC_AGNstarburst = sn.RCC_density(z, gtype="AGN starburst")
+rhoCC = rhoCC_spiral + rhoCC_starburst + rhoCC_AGNspiral + rhoCC_AGNstarburst
 
-plt.xlabel(r'z')
-plt.ylabel(r'$R_{SN1a} \, \mathrm{[10^-4 \, yr^{-1} \, Mpc^{-3}]} $')
-plt.legend(loc='lower right', fontsize=13)
-plt.savefig('../plots/SN1a.pdf')
+rhoCC_spiral_sal = sn.RCC_density(z, gtype="spiral", salpeter=True)
+rhoCC_starburst_sal = sn.RCC_density(z, gtype="starburst", salpeter=True)
+rhoCC_AGNspiral_sal = sn.RCC_density(z, gtype="AGN spiral", salpeter=True)
+rhoCC_AGNstarburst_sal = sn.RCC_density(z, gtype="AGN starburst", salpeter=True)
+rhoCC_sal = (
+    rhoCC_spiral_sal
+    + rhoCC_starburst_sal
+    + rhoCC_AGNspiral_sal
+    + rhoCC_AGNstarburst_sal
+)
+
+
+plt.figure(figsize=(7, 5))
+fig, ax = plt.subplots()
+
+plt.errorbar(
+    z_NOT,
+    NOT_mid,
+    yerr=[NOT_mid - NOT_low, NOT_high - NOT_mid],
+    color="C4",
+    marker="o",
+    label="Petrushevska et al. (2016)",
+    ls="none",
+)
+plt.errorbar(
+    z_hubble,
+    Hubble_mid,
+    (Hubble_mid - Hubble_low, Hubble_high - Hubble_mid),
+    color="C1",
+    marker="x",
+    label="Strogler et al. (2015)",
+    ls="none",
+)
+plt.errorbar(
+    z_dahl,
+    mid_dahl,
+    (mid_dahl - low_dahl, hi_dahl - mid_dahl),
+    color="C3",
+    marker="+",
+    label="Dahlen et al. (2012)",
+    ls="none",
+)
+plt.errorbar(
+    0.01,
+    1.5e-4,
+    [[0.3e-4], [0.4e-4]],
+    color="C9",
+    marker="H",
+    label="Mattila et al. (2018)",
+    ls="none",
+)
+
+plt.plot(z, rhoCC, "-", color="C0", label="Varying IMF (Total)")
+plt.plot(z, rhoCC_sal, "--", color="C2", label="Salpeter IMF (Total)")
+
+plt.yscale("log")
+plt.xlim(0.0, 3.0)
+plt.ylim(4e-5, 8e-2)
+plt.legend(loc="upper left", fontsize=12, ncol=1, frameon=True)
+plt.xlabel(r"$z$")
+plt.ylabel(r"$R_{\mathrm{CCSN}} \, \mathrm{[yr^{-1}\,Mpc^{-3}]}$")
+plt.savefig("../plots/R_cc_total.pdf", bbox_inches="tight")
+
+z = np.linspace(0, 4, 100)
+
+plt.figure(figsize=(7, 5))
+fig, ax = plt.subplots()
+
+plt.plot(z, rhoCC_spiral, "-", color="C0", label="Spiral")
+plt.plot(z, rhoCC_starburst, "-", color="C2", label="Spheroidal")
+
+plt.plot(z, rhoCC_spiral_sal, "--", color="C0")
+plt.plot(z, rhoCC_starburst_sal, "--", color="C2")
+
+plt.plot([-2, -1], [0, 0], "-", color="k", label="Varying IMF")
+plt.plot([-2, -1], [0, 0], "--", color="k", label="Salpeter IMF")
+
+plt.yscale("log")
+plt.xlim(0, 3)
+plt.ylim(4e-5, 8e-2)
+plt.legend(loc="upper right", fontsize=15, ncol=2, frameon=True)
+plt.xlabel(r"$z$")
+plt.ylabel(r"$R_{\mathrm{CCSN}} \, \mathrm{[yr^{-1}\,Mpc^{-3}]}$")
+plt.savefig("../plots/R_cc_split.pdf", bbox_inches="tight")
