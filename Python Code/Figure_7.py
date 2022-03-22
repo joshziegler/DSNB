@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 plt.style.use("plot_style.mplstyle")
 
-z = np.linspace(0.00000001, 4, 100)
+z = np.linspace(0.00000001, 4, 1000)
 
 rhoSF_spiral = sn.RSF_density(z, gtype="spiral")
 rhoSF_starburst = sn.RSF_density(z, gtype="starburst")
@@ -44,9 +44,9 @@ sn1az, sn1azerr, sn1arate, sn1arateerrminus, sn1arateerrplus = np.loadtxt(
 )
 
 plt.figure(figsize=(7, 5))
-plt.plot(z, fftconv * 1e4, color="blue", label="Varied IMF")
-plt.plot(z, fftconvsal * 1e4, color="green", label="Salpeter IMF")
-plt.plot(z, fftconv * 2 * 1e4, color="blue", ls="--", label=r"Varied IMF-DTD$\times$2")
+plt.plot(z, fftconv * 1e4, color="C0", label="Varied IMF")
+plt.plot(z, fftconvsal * 1e4, color="C2", label="Salpeter IMF")
+plt.plot(z, fftconv * 2 * 1e4, color="C0", ls="--", label=r"Varied IMF-DTD$\times$2")
 plt.errorbar(
     sn1az,
     sn1arate,
@@ -57,7 +57,9 @@ plt.errorbar(
     label="Strolger et al. (2020)",
 )
 
-plt.xlabel(r"z")
+plt.xlim(0, 3.0)
+plt.ylim(0.0, 1.0)
+plt.xlabel(r"Redshift, $z$")
 plt.ylabel(r"$R_{SN1a} \, \mathrm{[10^-4 \, yr^{-1} \, Mpc^{-3}]} $")
-plt.legend(loc="lower right", fontsize=13)
+plt.legend(loc="lower right", fontsize=14, frameon=True)
 plt.savefig("../plots/SN1a.pdf")
