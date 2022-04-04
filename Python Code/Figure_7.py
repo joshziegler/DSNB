@@ -62,31 +62,32 @@ plt.errorbar(
     color="firebrick",
     ls="none",
     label="Strolger et al. (2020)",
+    marker="o",
 )
 plt.errorbar(
-    pz, 
-    prate, 
-    xerr=0.05, 
-    yerr=(prateerrminus, prateerrplus), 
-    color = "darkred", 
-    ls="none", 
-    label = "Perrett et al. (2012)", 
-    marker="s"
+    pz,
+    prate,
+    xerr=0.05,
+    yerr=(prateerrminus, prateerrplus),
+    color="darkred",
+    ls="none",
+    label="Perrett et al. (2012)",
+    marker="s",
 )
 plt.errorbar(
-    cz, 
-    crate, 
-    xerr=(czerrlo, czerrhi), 
-    yerr=crateerr, 
-    color="red", 
-    ls="none", 
-    label="Cappellaro et al. (2015)", 
-    marker="p"
+    cz,
+    crate,
+    xerr=(czerrlo, czerrhi),
+    yerr=crateerr,
+    color="red",
+    ls="none",
+    label="Cappellaro et al. (2015)",
+    marker="p",
 )
 
 plt.xlim(0, 3.0)
 plt.ylim(0.0, 1.0)
 plt.xlabel(r"Redshift, $z$")
-plt.ylabel(r"$R_{SN1a} \, \mathrm{[10^-4 \, yr^{-1} \, Mpc^{-3}]} $")
+plt.ylabel(r"$R_{\rm SN1a} \, \mathrm{[10^{-4} \, yr^{-1} \, Mpc^{-3}]} $")
 plt.legend(loc="lower right", fontsize=14, frameon=True)
-plt.savefig("../plots/SN1a.pdf")
+plt.savefig("../plots/SN1a.pdf", bbox_inches="tight")

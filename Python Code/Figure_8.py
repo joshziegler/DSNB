@@ -62,8 +62,8 @@ BHfrac_sal = (
 plt.plot(z, BHfrac, "-", color="C0", label="Varying IMF (Total)")
 plt.plot(z, BHfrac_sal, "--", color="C2", label="Salpeter IMF (Total)")
 
-plt.xlim(0, 4.0)
-plt.ylim(0.1, 0.5)
+plt.xlim(0, 3.0)
+plt.ylim(0.2, 0.4)
 plt.legend(loc="upper left", frameon=True)
 plt.xlabel(r"Redshift, $z$")
 plt.ylabel("Black Hole Fraction")
