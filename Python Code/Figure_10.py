@@ -70,7 +70,7 @@ plt.step(
     where="post",
     linestyle="--",
     color="green",
-    label="SIG+BG: Salpeter IMF",
+    label="SIG+BG: Salpeter-like IMF",
 )
 plt.fill_between(
     E_BGS, TOTAL_BG, color="gray", linestyle="-", alpha=0.25, step="post", label="BG"
