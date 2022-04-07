@@ -74,7 +74,7 @@ plt.errorbar(
 # print((rhoSF_sal - rhoSF) / rhoSF_sal)
 
 plt.plot(z, rhoSF, "-", color="C0", label="Varying IMF")
-plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter IMF")
+plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter-like IMF")
 
 # plt.scatter(
 #     m11x,
