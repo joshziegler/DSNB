@@ -104,7 +104,7 @@ plt.errorbar(
 )
 
 plt.plot(z, rhoCC, "-", color="C0", label="Varying IMF (Total)")
-plt.plot(z, rhoCC_sal, "--", color="C2", label="Salpeter IMF (Total)")
+plt.plot(z, rhoCC_sal, "--", color="C2", label="Salpeter-like IMF (Total)")
 
 plt.yscale("log")
 plt.xlim(0.0, 3.0)
@@ -126,7 +126,7 @@ plt.plot(z, rhoCC_spiral_sal, "--", color="C0")
 plt.plot(z, rhoCC_starburst_sal, "--", color="C2")
 
 plt.plot([-2, -1], [0, 0], "-", color="k", label="Varying IMF")
-plt.plot([-2, -1], [0, 0], "--", color="k", label="Salpeter IMF")
+plt.plot([-2, -1], [0, 0], "--", color="k", label="Salpeter-like IMF")
 
 plt.yscale("log")
 plt.xlim(0, 3)
