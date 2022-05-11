@@ -36,6 +36,26 @@ gx, gxer, gy, gyerlo, gyerhi = np.loadtxt(
     "../Data/SN_constraints/Gruppioni_2013.txt", unpack=True
 )
 
+def Magnelli2013LF(L,z):
+    z = z.reshape(-1,1)
+    Lknee = np.where(z<0.1, 10.48, np.where(z<0.4, 10.84, np.where(z<0.7, 11.28, np.where(z<1.0, 11.53, np.where(z<1.3, 11.71, np.where(z<1.8,12.00, np.where(z<2.3, 12.35, 0)))))))
+    Phiknee = np.where(z<0.1, -2.52, np.where(z<0.4, -2.85, np.where(z<0.7, -2.82, np.where(z<1.0, -2.96, np.where(z<1.3, -3.01, np.where(z<1.8,-3.29, np.where(z<2.3, -3.47, 0)))))))
+    return np.where(L<10**Lknee, 10**Phiknee* (L/(10**Lknee))**-0.6, 10**Phiknee* (L/(10**Lknee))**-2.2)
+
+def Magnelli_RSF_density(z, usesalpeter=False, logLmin=8.0, logLmax=14.0, logLsteps=200, Mmin=8.0, Mmax=125.0, Msteps=52):
+    #set the arrays of luminosity and mass.
+    logL = np.linspace(logLmin, logLmax, logLsteps)
+    L = 10.**logL*sn.Lsun
+    M = np.linspace(Mmin, Mmax, Msteps)*sn.Msun
+    
+    #calculate the star formation rate in an individual galaxy with luminosity L
+    R = sn.RSF(L,usesalpeter=usesalpeter, gtype='spiral')
+    
+    #Integrate the star formation rate over a collection of galaxies of different luminosities, weighting according to the appropriate luminosity function Phi. 
+    rhoSF = integ.simps(R*Magnelli2013LF(L,z),x=logL)
+    
+    return rhoSF/(1./sn.yr/sn.Mpc**3)
+
 
 plt.figure(figsize=(7, 5))
 fig, ax = plt.subplots()
@@ -72,6 +92,10 @@ plt.errorbar(
 )
 # print(z)
 # print((rhoSF_sal - rhoSF) / rhoSF_sal)
+
+magsal= Magnelli_RSF_density(m13x, usesalpeter=True)
+mag = Magnelli_RSF_density(m13x, usesalpeter=False)
+plt.scatter(m13x, 10**m13y*mag/magsal, label='Magnelli 2013, Varying IMF', color = 'blue', marker='s')
 
 plt.plot(z, rhoSF, "-", color="C0", label="Varying IMF")
 plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter-like IMF")
