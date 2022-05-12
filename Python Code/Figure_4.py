@@ -36,25 +36,45 @@ gx, gxer, gy, gyerlo, gyerhi = np.loadtxt(
     "../Data/SN_constraints/Gruppioni_2013.txt", unpack=True
 )
 
-def Magnelli2013LF(L,z):
-    z = z.reshape(-1,1)
-    Phiknee = lambda z: np.where(z<1.0, 10**-2.57 *(1+z)**-1.5, 10**-2.03*(1+z)**-3.0)
-    Lknee = lambda z: np.where(z<1.0, 10**10.48 * (1+z)**3.8, 10**10.31 * (1+z)**4.2)
-    return np.where(L<Lknee(z), Phiknee(z)* (L/Lknee(z))**-0.6, Phiknee(z)* (L/Lknee(z))**-2.2)
 
-def Magnelli_RSF_density(z, gtype='spiral', usesalpeter=False, logLmin=8.0, logLmax=14.0, logLsteps=200, Mmin=8.0, Mmax=125.0, Msteps=52):
-    #set the arrays of luminosity and mass.
+def Magnelli2013LF(L, z):
+    z = z.reshape(-1, 1)
+    Phiknee = lambda z: np.where(
+        z < 1.0, 10 ** -2.57 * (1 + z) ** -1.5, 10 ** -2.03 * (1 + z) ** -3.0
+    )
+    Lknee = lambda z: np.where(
+        z < 1.0, 10 ** 10.48 * (1 + z) ** 3.8, 10 ** 10.31 * (1 + z) ** 4.2
+    )
+    return np.where(
+        L < Lknee(z),
+        Phiknee(z) * (L / Lknee(z)) ** -0.6,
+        Phiknee(z) * (L / Lknee(z)) ** -2.2,
+    )
+
+
+def Magnelli_RSF_density(
+    z,
+    gtype="spiral",
+    usesalpeter=False,
+    logLmin=8.0,
+    logLmax=14.0,
+    logLsteps=200,
+    Mmin=8.0,
+    Mmax=125.0,
+    Msteps=52,
+):
+    # set the arrays of luminosity and mass.
     logL = np.linspace(logLmin, logLmax, logLsteps)
-    L = 10.**logL*sn.Lsun
-    M = np.linspace(Mmin, Mmax, Msteps)*sn.Msun
-    
-    #calculate the star formation rate in an individual galaxy with luminosity L
-    R = sn.RSF(L,usesalpeter=usesalpeter, gtype='spiral')
-    
-    #Integrate the star formation rate over a collection of galaxies of different luminosities, weighting according to the appropriate luminosity function Phi. 
-    rhoSF = integ.simps(R*Magnelli2013LF(L,z),x=logL)
-    
-    return rhoSF/(1./sn.yr/sn.Mpc**3)
+    L = 10.0 ** logL * sn.Lsun
+    M = np.linspace(Mmin, Mmax, Msteps) * sn.Msun
+
+    # calculate the star formation rate in an individual galaxy with luminosity L
+    R = sn.RSF(L, usesalpeter=usesalpeter, gtype="spiral")
+
+    # Integrate the star formation rate over a collection of galaxies of different luminosities, weighting according to the appropriate luminosity function Phi.
+    rhoSF = integ.simps(R * Magnelli2013LF(L, z), x=logL)
+
+    return rhoSF / (1.0 / sn.yr / sn.Mpc ** 3)
 
 
 plt.figure(figsize=(7, 5))
@@ -93,21 +113,49 @@ plt.errorbar(
 # print(z)
 # print((rhoSF_sal - rhoSF) / rhoSF_sal)
 
-magsal0= Magnelli_RSF_density(m13x[0], usesalpeter=True, logLmin=9.6, gtype='starburst')
-mag0 = Magnelli_RSF_density(m13x[0], usesalpeter=False, logLmin =9.6, gtype='starburst')
-magsal1= Magnelli_RSF_density(m13x[1], usesalpeter=True, logLmin=10.5, gtype='starburst')
-mag1 = Magnelli_RSF_density(m13x[1], usesalpeter=False, logLmin =10.5, gtype='starburst')
-magsal2= Magnelli_RSF_density(m13x[2], usesalpeter=True, logLmin=10.9, gtype='starburst')
-mag2 = Magnelli_RSF_density(m13x[2], usesalpeter=False, logLmin =10.9, gtype='starburst')
-magsal3= Magnelli_RSF_density(m13x[3], usesalpeter=True, logLmin=11.3, gtype='starburst')
-mag3 = Magnelli_RSF_density(m13x[3], usesalpeter=False, logLmin =11.3, gtype='starburst')
-magsal4= Magnelli_RSF_density(m13x[4], usesalpeter=True, logLmin=11.6, gtype='starburst')
-mag4 = Magnelli_RSF_density(m13x[4], usesalpeter=False, logLmin =11.6, gtype='starburst')
-plt.scatter(m13x[0], mag0*(10**m13y[0]/magsal0), label='Magnelli 2013, Varying IMF', color = 'blue', marker='s')
-plt.scatter(m13x[1], mag1*(10**m13y[1]/magsal1), color = 'blue', marker='s')
-plt.scatter(m13x[2], mag2*(10**m13y[2]/magsal2), color = 'blue', marker='s')
-plt.scatter(m13x[3], mag3*(10**m13y[3]/magsal3), color = 'blue', marker='s')
-plt.scatter(m13x[4], mag4*(10**m13y[4]/magsal4), color = 'blue', marker='s')
+magsal0 = Magnelli_RSF_density(
+    m13x[0], usesalpeter=True, logLmin=9.6, gtype="starburst"
+)
+mag0 = Magnelli_RSF_density(m13x[0], usesalpeter=False, logLmin=9.6, gtype="starburst")
+magsal1 = Magnelli_RSF_density(
+    m13x[1], usesalpeter=True, logLmin=10.5, gtype="starburst"
+)
+mag1 = Magnelli_RSF_density(m13x[1], usesalpeter=False, logLmin=10.5, gtype="starburst")
+magsal2 = Magnelli_RSF_density(
+    m13x[2], usesalpeter=True, logLmin=10.9, gtype="starburst"
+)
+mag2 = Magnelli_RSF_density(m13x[2], usesalpeter=False, logLmin=10.9, gtype="starburst")
+magsal3 = Magnelli_RSF_density(
+    m13x[3], usesalpeter=True, logLmin=11.3, gtype="starburst"
+)
+mag3 = Magnelli_RSF_density(m13x[3], usesalpeter=False, logLmin=11.3, gtype="starburst")
+magsal4 = Magnelli_RSF_density(
+    m13x[4], usesalpeter=True, logLmin=11.6, gtype="starburst"
+)
+mag4 = Magnelli_RSF_density(m13x[4], usesalpeter=False, logLmin=11.6, gtype="starburst")
+plt.scatter(
+    m13x[0],
+    mag0 * (10 ** m13y[0] / magsal0),
+    color="blue",
+    marker="s",
+)
+plt.scatter(m13x[1], mag1 * (10 ** m13y[1] / magsal1), color="blue", marker="s")
+plt.scatter(m13x[2], mag2 * (10 ** m13y[2] / magsal2), color="blue", marker="s")
+plt.scatter(m13x[3], mag3 * (10 ** m13y[3] / magsal3), color="blue", marker="s")
+plt.scatter(m13x[4], mag4 * (10 ** m13y[4] / magsal4), color="blue", marker="s")
+
+# plt.arrow(
+#     x=m13x[4],
+#     y=10 ** m13y[4],
+#     dx=0.0,
+#     dy=-(10 ** m13y[4] - mag4 * (10 ** m13y[4] / magsal4))[0],
+#     length_includes_head=True,
+#     head_width=0.05,
+#     head_length=0.01,
+#     alpha=0.3,
+#     ls="--",
+#     color="blue",
+# )
 
 plt.plot(z, rhoSF, "-", color="C0", label="Varying IMF")
 plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter-like IMF")
@@ -136,7 +184,7 @@ plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter-like IMF")
 plt.text(
     0.08,
     0.3,
-    r"\noindent Note that all data points assume a Salpeter-like IMF. Changes to \\ this assumption would therefore change the inferred SFRD.",
+    r"\noindent Note that all red data points assume a Salpeter-like IMF. Blue points \\ are scaled using a varying IMF assumption.",
     horizontalalignment="left",
     fontsize=12,
 )
@@ -144,7 +192,7 @@ plt.text(
 plt.yscale("log")
 plt.xlim(0, 3.0)
 plt.ylim(1e-2, 3.8e-1)
-plt.legend(loc="lower right", fontsize=12, frameon=True, ncol=2, columnspacing=1)
+plt.legend(loc="lower right", fontsize=12, frameon=True, columnspacing=1)
 plt.xlabel(r"Redshift, $z$")
 plt.ylabel(r"$R_{\mathrm{SF}} \, \mathrm{[M_\odot\,yr^{-1}\,Mpc^{-3}]}$")
 plt.savefig("../plots/R_SF.pdf", bbox_inches="tight")
