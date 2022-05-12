@@ -144,7 +144,7 @@ plt.text(
 plt.yscale("log")
 plt.xlim(0, 3.0)
 plt.ylim(1e-2, 3.8e-1)
-plt.legend(loc="lower right", fontsize=12, frameon=True)
+plt.legend(loc="lower right", fontsize=12, frameon=True, ncol=2, columnspacing=1)
 plt.xlabel(r"Redshift, $z$")
 plt.ylabel(r"$R_{\mathrm{SF}} \, \mathrm{[M_\odot\,yr^{-1}\,Mpc^{-3}]}$")
 plt.savefig("../plots/R_SF.pdf", bbox_inches="tight")
