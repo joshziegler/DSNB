@@ -38,9 +38,9 @@ gx, gxer, gy, gyerlo, gyerhi = np.loadtxt(
 
 def Magnelli2013LF(L,z):
     z = z.reshape(-1,1)
-    Lknee = np.where(z<0.1, 10.48, np.where(z<0.4, 10.84, np.where(z<0.7, 11.28, np.where(z<1.0, 11.53, np.where(z<1.3, 11.71, np.where(z<1.8,12.00, np.where(z<2.3, 12.35, 0)))))))
-    Phiknee = np.where(z<0.1, -2.52, np.where(z<0.4, -2.85, np.where(z<0.7, -2.82, np.where(z<1.0, -2.96, np.where(z<1.3, -3.01, np.where(z<1.8,-3.29, np.where(z<2.3, -3.47, 0)))))))
-    return np.where(L<10**Lknee, 10**Phiknee* (L/(10**Lknee))**-0.6, 10**Phiknee* (L/(10**Lknee))**-2.2)
+    Phiknee = lambda z: np.where(z<1.0, 10**-2.57 *(1+z)**-1.5, 10**-2.03*(1+z)**-3.0)
+    Lknee = lambda z: np.where(z<1.0, 10**10.48 * (1+z)**3.8, 10**10.31 * (1+z)**4.2)
+    return np.where(L<Lknee(z), Phiknee(z)* (L/Lknee(z))**-0.6, Phiknee(z)* (L/Lknee(z))**-2.2)
 
 def Magnelli_RSF_density(z, usesalpeter=False, logLmin=8.0, logLmax=14.0, logLsteps=200, Mmin=8.0, Mmax=125.0, Msteps=52):
     #set the arrays of luminosity and mass.
@@ -93,9 +93,21 @@ plt.errorbar(
 # print(z)
 # print((rhoSF_sal - rhoSF) / rhoSF_sal)
 
-magsal= Magnelli_RSF_density(m13x, usesalpeter=True)
-mag = Magnelli_RSF_density(m13x, usesalpeter=False)
-plt.scatter(m13x, 10**m13y*mag/magsal, label='Magnelli 2013, Varying IMF', color = 'blue', marker='s')
+magsal0= Magnelli_RSF_density(m13x[0], usesalpeter=True, logLmin=9.6, gtype='starburst')
+mag0 = Magnelli_RSF_density(m13x[0], usesalpeter=False, logLmin =9.6, gtype='starburst')
+magsal1= Magnelli_RSF_density(m13x[1], usesalpeter=True, logLmin=10.5, gtype='starburst')
+mag1 = Magnelli_RSF_density(m13x[1], usesalpeter=False, logLmin =10.5, gtype='starburst')
+magsal2= Magnelli_RSF_density(m13x[2], usesalpeter=True, logLmin=10.9, gtype='starburst')
+mag2 = Magnelli_RSF_density(m13x[2], usesalpeter=False, logLmin =10.9, gtype='starburst')
+magsal3= Magnelli_RSF_density(m13x[3], usesalpeter=True, logLmin=11.3, gtype='starburst')
+mag3 = Magnelli_RSF_density(m13x[3], usesalpeter=False, logLmin =11.3, gtype='starburst')
+magsal4= Magnelli_RSF_density(m13x[4], usesalpeter=True, logLmin=11.6, gtype='starburst')
+mag4 = Magnelli_RSF_density(m13x[4], usesalpeter=False, logLmin =11.6, gtype='starburst')
+plt.scatter(m13x[0], mag0*(10**m13y[0]/magsal0), label='Magnelli 2013, Varying IMF', color = 'blue', marker='s')
+plt.scatter(m13x[1], mag1*(10**m13y[1]/magsal1), color = 'blue', marker='s')
+plt.scatter(m13x[2], mag2*(10**m13y[2]/magsal2), color = 'blue', marker='s')
+plt.scatter(m13x[3], mag3*(10**m13y[3]/magsal3), color = 'blue', marker='s')
+plt.scatter(m13x[4], mag4*(10**m13y[4]/magsal4), color = 'blue', marker='s')
 
 plt.plot(z, rhoSF, "-", color="C0", label="Varying IMF")
 plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter-like IMF")
