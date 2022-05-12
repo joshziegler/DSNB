@@ -42,7 +42,7 @@ def Magnelli2013LF(L,z):
     Lknee = lambda z: np.where(z<1.0, 10**10.48 * (1+z)**3.8, 10**10.31 * (1+z)**4.2)
     return np.where(L<Lknee(z), Phiknee(z)* (L/Lknee(z))**-0.6, Phiknee(z)* (L/Lknee(z))**-2.2)
 
-def Magnelli_RSF_density(z, usesalpeter=False, logLmin=8.0, logLmax=14.0, logLsteps=200, Mmin=8.0, Mmax=125.0, Msteps=52):
+def Magnelli_RSF_density(z, gtype='spiral', usesalpeter=False, logLmin=8.0, logLmax=14.0, logLsteps=200, Mmin=8.0, Mmax=125.0, Msteps=52):
     #set the arrays of luminosity and mass.
     logL = np.linspace(logLmin, logLmax, logLsteps)
     L = 10.**logL*sn.Lsun
