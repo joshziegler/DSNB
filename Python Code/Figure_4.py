@@ -158,7 +158,7 @@ plt.scatter(m13x[4], mag4 * (10 ** m13y[4] / magsal4), color="blue", marker="s")
 # )
 
 plt.plot(z, rhoSF, "-", color="C0", label="Varying IMF")
-plt.plot(z, rhoSF_sal, "--", color="C2", label="Salpeter-like IMF")
+plt.plot(z, rhoSF_sal, "--", color="C2", label="Canonical IMF")
 
 # plt.scatter(
 #     m11x,
