@@ -52,7 +52,7 @@ cz, czerrlo, czerrhi, crate, crateerr = np.loadtxt(
 
 plt.figure(figsize=(7, 5))
 plt.plot(z, fftconv * 1e4, color="C0", label="Varied IMF")
-plt.plot(z, fftconvsal * 1e4, color="C2", ls="--", label="Salpeter-like IMF")
+plt.plot(z, fftconvsal * 1e4, color="C2", ls="--", label="Canonical IMF")
 plt.plot(z, fftconv * 2 * 1e4, color="C0", ls="-.", label=r"Varied IMF-DTD$\times$2")
 plt.errorbar(
     sn1az,
