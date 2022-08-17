@@ -60,7 +60,7 @@ BHfrac_sal = (
 # plt.figure(figsize=(7, 5))
 
 plt.plot(z, BHfrac, "-", color="C0", label="Varying IMF (Total)")
-plt.plot(z, BHfrac_sal, "--", color="C2", label="Salpeter-like IMF (Total)")
+plt.plot(z, BHfrac_sal, "--", color="C2", label="Canonical IMF (Total)")
 
 plt.xlim(0, 3.0)
 plt.ylim(0.2, 0.4)
