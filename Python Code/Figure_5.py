@@ -122,7 +122,7 @@ eblsal = (
 
 
 plt.loglog(1240 / E, ebl, label="Varying IMF", color="C0")
-plt.loglog(1240 / E, eblsal, label="Salpeter-like IMF", color="C2", ls="--")
+plt.loglog(1240 / E, eblsal, label="Canonical IMF", color="C2", ls="--")
 
 (
     BW_lambda,
