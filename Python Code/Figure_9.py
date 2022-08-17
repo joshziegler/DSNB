@@ -62,7 +62,7 @@ plt.fill_between(
 # )
 
 plt.plot(E, DSNB, "-", color="C0", label="Varying IMF")
-plt.plot(E, DSNB_salpeter, "--", color="C2", label="Salpeter-like IMF")
+plt.plot(E, DSNB_salpeter, "--", color="C2", label="Canonical IMF")
 
 plt.yscale("log")
 plt.xlim(0, 50)
