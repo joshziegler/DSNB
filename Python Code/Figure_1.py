@@ -36,7 +36,7 @@ plt.loglog(massrange, chabrier, label="Chabrier (2003)", ls="-.", color="C3")
 plt.fill_between(
     massrange, varying18, varying235, alpha=0.3, label="Varying IMF (this work)", color="C0"
 )
-plt.loglog(massrange, varying235, label="Salpeter-like", ls="-", color="rebeccapurple")
+plt.loglog(massrange, varying235, label="Canonical IMF", ls="-", color="rebeccapurple")
 
 plt.xlim(1e-1, 1e2)
 plt.legend(loc="lower left")
